@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![Main View](https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/.github/screenshots/main_view.png)
+![Main View](https://raw.githubusercontent.com/Pizlo/vinteumcalendar/main/.github/screenshots/main_view.png)
 
 **A modern, animated booking widget that seamlessly integrates with HubSpot CRM and Zoom**
 
@@ -55,8 +55,8 @@
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/YOUR_USERNAME/YOUR_REPO.git
-   cd YOUR_REPO
+   git clone https://github.com/Pizlo/vinteumcalendar.git
+   cd vinteumcalendar
    ```
 
 2. **Install dependencies**

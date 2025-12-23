@@ -1,12 +1,12 @@
 /**
- * Generates an array of the next 14 days starting from today
+ * Generates an array of the next 35 days starting from today
  */
-export function getNext14Days(): Date[] {
+export function getNext35Days(): Date[] {
   const days: Date[] = [];
   const today = new Date();
   today.setHours(0, 0, 0, 0); // Reset to start of day
 
-  for (let i = 0; i < 14; i++) {
+  for (let i = 0; i < 35; i++) {
     const date = new Date(today);
     date.setDate(today.getDate() + i);
     days.push(date);

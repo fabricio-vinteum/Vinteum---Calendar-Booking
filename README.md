@@ -2,8 +2,6 @@
 
 <div align="center">
 
-![Main View](https://raw.githubusercontent.com/Pizlo/vinteumcalendar/main/.github/screenshots/main_view.png)
-
 **An intelligent booking widget that automates meeting scheduling with seamless HubSpot CRM and Zoom integration**
 
 Built for sales teams who need to manage meeting capacity and automate their booking workflow. This widget ensures no time slot gets overbooked while automatically creating contacts, deals, and Zoom meetings.
@@ -13,80 +11,58 @@ Built for sales teams who need to manage meeting capacity and automate their boo
 [![Node.js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 
-[Features](#-features) • [Demo](#-demo) • [Quick Start](#-quick-start) • [Documentation](#-documentation) • [Deployment](#-deployment)
+[Features](#-features) • [Quick Start](#-quick-start) • [API](#-api-endpoints) • [Deployment](#-deployment)
 
 </div>
 
 ---
 
-## 🎬 What is Vinteum Calendar?
+## 📸 Screenshots
 
-Vinteum Calendar is a production-ready booking widget designed for businesses that need to:
+### Main Booking Interface
+![Main View](.github/screenshots/main_view.png)
+*Modern interface with Vinteum branding, date selector, and hourly time slots*
 
-- **Manage Meeting Capacity** - Limit bookings per time slot (default: 2 bookings for 2 sales team members)
-- **Automate CRM Workflows** - Automatically create contacts and deals in HubSpot
-- **Generate Zoom Meetings** - Create video conference links instantly
-- **Prevent Double-Booking** - Real-time availability checking across your team
-- **Provide Beautiful UX** - Modern, animated interface that delights users
+### Interactive Hover States
+![Hover State](.github/screenshots/hover_state.png)
+*Smooth hover animations on date cards*
 
-### 💼 Perfect For:
-- Sales teams managing demo calls
-- Customer success teams scheduling onboarding
-- Consulting firms booking client meetings
-- Any business needing smart calendar management
+### Booking Confirmation
+![Confirmation](.github/screenshots/confirmation.png)
+*Success screen with meeting details and calendar export option*
 
-### 🔄 How It Works:
-1. **Customer visits** your booking page with their name and email (from your CRM link)
-2. **Widget shows** available time slots based on real-time capacity
-3. **Customer selects** a time that works for them
-4. **System automatically**:
-   - Creates/updates contact in HubSpot
-   - Creates a deal in HubSpot
-   - Generates a Zoom meeting
-   - Associates everything together
-   - Sends confirmation with meeting link
+### Calendar Export Modal
+![Calendar Modal](.github/screenshots/calendar_modal.png)
+*One-click export to Google Calendar or Outlook*
 
-All in less than 2 seconds, with automatic rollback if anything fails!
+---
 
 ## ✨ Features
 
-- 🎨 **Beautiful Animated UI** - Material Design with smooth fade-in, slide-up, and hover animations
-- 📅 **Smart Capacity Management** - Limits each time slot to 2 bookings (configurable)
+- 🎨 **Beautiful Animated UI** - Modern design with Satoshi font and Vinteum branding
+- � **Smart Availability** - Checks Zoom calendar for conflicts and blocks booked slots
 - 🔄 **Atomic Transactions** - All-or-nothing booking with automatic rollback on failure
-- 🎯 **Real-time Availability** - Dynamic slot filtering based on existing bookings
+- 🎯 **Real-time Sync** - Integrates with HubSpot CRM and Zoom API
 - 📱 **Fully Responsive** - Works perfectly on desktop, tablet, and mobile
-- 🔗 **Easy Integration** - Embed anywhere with a simple iframe
+- �️ **Calendar Export** - Add meetings to Google Calendar or Outlook with one click
 - ⚡ **Lightning Fast** - Built with Vite for optimal performance
 - 🎭 **Mock Mode** - Test without real API credentials
 
 ---
 
-## 🖼️ Screenshots
-
-### Main Interface
-![Main View](.github/screenshots/main_view.png)
-
-### Interactive Hover States
-![Hover State](.github/screenshots/hover_state.png)
-
-### Available Time Slots
-![Time Slots List](.github/screenshots/time_slots_list.png)
-
----
-
-## 🚀 Quick Start
+##  Quick Start
 
 ### Prerequisites
 
 - Node.js v18+ and npm v9+
 - HubSpot account with Private App access
-- Zoom account with OAuth credentials
+- Zoom account with Server-to-Server OAuth credentials
 
 ### Installation
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/Pizlo/vinteumcalendar.git
+   git clone https://github.com/yourusername/vinteumcalendar.git
    cd vinteumcalendar
    ```
 
@@ -103,24 +79,16 @@ All in less than 2 seconds, with automatic rollback if anything fails!
 
 3. **Configure environment variables**
 
-   **Backend** (`server/.env`):
-   ```env
-   HUBSPOT_ACCESS_TOKEN=your_hubspot_token
-   HUBSPOT_MOCK_MODE=true
-
-   ZOOM_ACCOUNT_ID=your_zoom_account_id
-   ZOOM_CLIENT_ID=your_zoom_client_id
-   ZOOM_CLIENT_SECRET=your_zoom_client_secret
-   ZOOM_MOCK_MODE=true
-
-   PORT=3000
-   NODE_ENV=development
+   **Backend** - Copy `server/.env.example` to `server/.env` and fill in your credentials:
+   ```bash
+   cd server
+   cp .env.example .env
    ```
 
-   **Frontend** (`client/.env`):
-   ```env
-   VITE_API_URL=http://localhost:3000
-   VITE_ENV=development
+   **Frontend** - Copy `client/.env.example` to `client/.env`:
+   ```bash
+   cd client
+   cp .env.example .env
    ```
 
 4. **Start development servers**
@@ -144,26 +112,23 @@ All in less than 2 seconds, with automatic rollback if anything fails!
 ## 🏗️ Architecture
 
 ```
-booking-widget/
+vinteumcalendar/
 ├── client/                 # React Frontend
+│   ├── public/
+│   │   ├── font/          # Satoshi font files
+│   │   └── img/           # Vinteum logo
 │   ├── src/
 │   │   ├── components/    # React components
-│   │   │   ├── BookingWidget.tsx
-│   │   │   ├── HostProfile.tsx
-│   │   │   ├── CalendarContainer.tsx
-│   │   │   ├── DateStripSelector.tsx
-│   │   │   ├── TimeSlotGrid.tsx
-│   │   │   └── BookingConfirmation.tsx
 │   │   ├── api/          # API clients
 │   │   ├── hooks/        # Custom React hooks
 │   │   ├── utils/        # Utility functions
 │   │   └── types/        # TypeScript types
-│   └── index.html
+│   └── .env.example
 │
 ├── server/                # Express Backend
 │   ├── src/
 │   │   ├── adapters/     # External API integrations
-│   │   │   ├── hubspotAdapter.ts
+│   │   │   ├── hubspotAdapter_v3.ts
 │   │   │   └── zoomAdapter.ts
 │   │   ├── routes/       # API routes
 │   │   │   ├── availability.ts
@@ -173,7 +138,7 @@ booking-widget/
 │   │   ├── errors/       # Custom error classes
 │   │   ├── config/       # Configuration
 │   │   └── server.ts     # Entry point
-│   └── package.json
+│   └── .env.example
 │
 └── README.md
 ```
@@ -193,9 +158,9 @@ Get available time slots for a specific date.
 ```json
 {
   "slots": [
-    "2025-12-23T09:00:00.000Z",
-    "2025-12-23T10:00:00.000Z",
-    "2025-12-23T11:00:00.000Z"
+    "2025-12-23T12:00:00-05:00",
+    "2025-12-23T13:00:00-05:00",
+    "2025-12-23T14:00:00-05:00"
   ]
 }
 ```
@@ -208,10 +173,10 @@ Create a new booking.
 {
   "email": "john@example.com",
   "firstname": "John",
-  "date": "2025-12-23T09:00:00.000Z",
+  "date": "2025-12-23T12:00:00-05:00",
   "timezone": "America/Sao_Paulo",
-  "topic": "Sales Meeting",
-  "duration": 30
+  "topic": "Demo Meeting",
+  "duration": 60
 }
 ```
 
@@ -222,7 +187,8 @@ Create a new booking.
   "contactId": "12345",
   "dealId": "67890",
   "meetingId": "abc123",
-  "joinUrl": "https://zoom.us/j/123456789"
+  "joinUrl": "https://zoom.us/j/123456789",
+  "topic": "Demo with Company Name | Vinteum"
 }
 ```
 
@@ -231,13 +197,12 @@ Create a new booking.
 ## 🎨 Tech Stack
 
 ### Frontend
-- **React 18** - UI library
+- **React 19** - UI library
 - **TypeScript** - Type safety
 - **Vite** - Build tool
 - **Tailwind CSS v4** - Styling
+- **Satoshi Font** - Custom typography
 - **Material Icons** - Icon library
-- **Axios** - HTTP client
-- **Zod** - Runtime validation
 
 ### Backend
 - **Node.js** - Runtime
@@ -249,28 +214,46 @@ Create a new booking.
 
 ---
 
+## 🔐 HubSpot & Zoom Setup
+
+### HubSpot Configuration
+
+1. **Create a Private App:**
+   - Go to Settings → Integrations → Private Apps
+   - Click "Create a private app"
+   - Name it "Booking Widget"
+
+2. **Set Required Scopes:**
+   - `crm.objects.contacts.read`
+   - `crm.objects.contacts.write`
+   - `crm.objects.deals.read`
+   - `crm.objects.deals.write`
+
+3. **Copy Access Token** to `HUBSPOT_ACCESS_TOKEN` in `.env`
+
+### Zoom Configuration
+
+1. **Create Server-to-Server OAuth App:**
+   - Visit [Zoom App Marketplace](https://marketplace.zoom.us/)
+   - Create new Server-to-Server OAuth app
+   - Copy Account ID, Client ID, and Client Secret
+
+2. **Set Required Scopes:**
+   - `meeting:write`
+   - `meeting:read`
+   - `user:read`
+
+3. **Add Credentials** to `.env` file
+
+---
+
 ## 🌐 Deployment
-
-### Quick Deploy Options
-
-#### Option 1: Vercel (Frontend) + Railway (Backend)
-- **Frontend:** Deploy to Vercel with one click
-- **Backend:** Deploy to Railway with automatic builds
-- **Best for:** Quick deployment with minimal configuration
-
-#### Option 2: cPanel Hosting
-- **Complete guide:** See [CPANEL-DEPLOYMENT.md](./CPANEL-DEPLOYMENT.md)
-- **Best for:** Shared hosting environments
-
-#### Option 3: VPS/Cloud Server
-- **Complete guide:** See [DEPLOYMENT.md](./DEPLOYMENT.md)
-- **Best for:** Full control and customization
 
 ### Environment Variables (Production)
 
 **Backend:**
 ```env
-HUBSPOT_ACCESS_TOKEN=pat-na1-xxxxx
+HUBSPOT_ACCESS_TOKEN=xxx-xxx-xxxxx
 HUBSPOT_MOCK_MODE=false
 ZOOM_ACCOUNT_ID=xxxxx
 ZOOM_CLIENT_ID=xxxxx
@@ -278,7 +261,6 @@ ZOOM_CLIENT_SECRET=xxxxx
 ZOOM_MOCK_MODE=false
 PORT=3000
 NODE_ENV=production
-ALLOWED_ORIGINS=https://yourdomain.com
 ```
 
 **Frontend:**
@@ -286,6 +268,12 @@ ALLOWED_ORIGINS=https://yourdomain.com
 VITE_API_URL=https://api.yourdomain.com
 VITE_ENV=production
 ```
+
+### Deployment Options
+
+- **Vercel** (Frontend) + **Railway** (Backend) - Recommended for quick deployment
+- **cPanel** - See [CPANEL-DEPLOYMENT.md](./CPANEL-DEPLOYMENT.md)
+- **VPS/Cloud** - See [DEPLOYMENT.md](./DEPLOYMENT.md)
 
 ---
 
@@ -309,79 +297,25 @@ Add this iframe to your website:
 
 ---
 
-## 🔐 HubSpot & Zoom Setup
+## � Key Features
 
-### HubSpot Configuration
+### Zoom Calendar Integration
+- Automatically checks Zoom for existing meetings
+- Blocks time slots that conflict with scheduled meetings
+- Prevents double-booking across your team
 
-1. **Create a Private App:**
-   - Go to Settings → Integrations → Private Apps
-   - Click "Create a private app"
-   - Name it "Booking Widget"
-
-2. **Set Required Scopes:**
-   - `crm.objects.contacts.read`
-   - `crm.objects.contacts.write`
-   - `crm.objects.deals.read`
-   - `crm.objects.deals.write`
-
-3. **Copy Access Token** to `HUBSPOT_ACCESS_TOKEN`
-
-### Zoom Configuration
-
-1. **Create Server-to-Server OAuth App:**
-   - Visit Zoom App Marketplace
-   - Create new Server-to-Server OAuth app
-   - Copy Account ID, Client ID, and Client Secret
-
-2. **Set Required Scopes:**
-   - `meeting:write`
-   - `user:read`
-
-3. **Add Credentials** to environment variables
-
----
-
-## 🐛 Troubleshooting
-
-### "Unable to Load Times" Error
-**Cause:** Backend server not running or CORS issue
-
-**Solution:**
-```bash
-# Check backend health
-curl http://localhost:3000/api/health
-
-# Verify CORS settings
-ALLOWED_ORIGINS=http://localhost:5173
-```
-
-### Build Errors
-**Solution:**
-```bash
-# Clean install
-rm -rf node_modules package-lock.json
-npm install
-
-# Check TypeScript
-npx tsc --noEmit
-```
-
----
-
-## 📊 Features in Detail
-
-### Capacity Management
-- Each time slot can accommodate **2 bookings** (configurable)
-- Automatically filters out fully booked slots
-- Real-time availability checking via HubSpot deals
+### Calendar Export
+- One-click export to Google Calendar
+- One-click export to Outlook Calendar
+- Pre-filled event details with Zoom link
 
 ### Atomic Transactions
 The booking process follows a 5-step atomic transaction:
-1. Find or create HubSpot contact
-2. Create Zoom meeting
+1. Find or create HubSpot contact (with company lookup)
+2. Create Zoom meeting with dynamic topic
 3. Create HubSpot deal
 4. Associate deal with contact
-5. Log meeting to timeline
+5. Return meeting details to user
 
 If any step fails, the entire transaction rolls back automatically.
 
@@ -390,6 +324,20 @@ Perfect for development and testing:
 - Simulates HubSpot and Zoom API responses
 - No real API calls or credentials needed
 - Configurable via `HUBSPOT_MOCK_MODE` and `ZOOM_MOCK_MODE`
+
+---
+
+## 🎨 Customization
+
+### Branding
+- Logo: Replace `client/public/img/logo.png`
+- Colors: Update `--color-primary` in `client/src/index.css`
+- Font: Replace Satoshi fonts in `client/public/font/`
+
+### Meeting Settings
+- Duration: Update in `client/src/components/BookingWidget.tsx` and `HostProfile.tsx`
+- Time slots: Modify `server/src/adapters/zoomAdapter.ts` (currently 7am-6pm GMT-5)
+- Timezone: System uses GMT-5, displays in user's local timezone
 
 ---
 
@@ -411,18 +359,15 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ---
 
-## 📞 Support
+<div align="center">
 
-For issues or questions:
-- Open an issue on GitHub
-- Check the [Deployment Guide](./DEPLOYMENT.md)
-- Review the [cPanel Guide](./CPANEL-DEPLOYMENT.md)
+**Made by Fabrício Nogueira**  
+*International Marketing Specialist*  
+**Vinteum - 2025**
 
 ---
 
-<div align="center">
-
-**Built with ❤️ using React, TypeScript, and modern web technologies**
+**Built with ❤️ for Vinteum Software**
 
 ⭐ Star this repo if you find it helpful!
 

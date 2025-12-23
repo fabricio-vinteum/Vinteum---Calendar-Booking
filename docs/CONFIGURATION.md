@@ -8,7 +8,7 @@ Create a `.env` file in the `server/` directory:
 
 ```env
 # HubSpot Configuration
-HUBSPOT_ACCESS_TOKEN=pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+HUBSPOT_ACCESS_TOKEN=xxx-xxx-xxxxx
 HUBSPOT_MOCK_MODE=false
 
 # Zoom Configuration
@@ -67,7 +67,7 @@ Select the following scopes:
 2. Copy the access token
 3. Add to `.env`:
    ```env
-   HUBSPOT_ACCESS_TOKEN=pat-na1-your-token-here
+   HUBSPOT_ACCESS_TOKEN=xxx-xxx-xxxxx
    ```
 
 ### 4. Configure Deal Pipeline

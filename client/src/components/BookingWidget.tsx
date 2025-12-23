@@ -11,12 +11,14 @@ export const BookingWidget: React.FC = () => {
   const [bookingState, setBookingState] = useState<'calendar' | 'loading' | 'confirmed' | 'error'>('calendar');
   const [bookingResult, setBookingResult] = useState<CreateBookingResponse | null>(null);
   const [bookingError, setBookingError] = useState<string | null>(null);
+  const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
 
   const handleSlotClick = async (slot: string) => {
     if (!context) return;
 
     setBookingState('loading');
     setBookingError(null);
+    setSelectedSlot(slot);
 
     const result = await createBooking({
       email: context.email,
@@ -24,7 +26,7 @@ export const BookingWidget: React.FC = () => {
       date: slot,
       timezone: detectTimezone(),
       topic: 'Meeting with Host',
-      duration: 30,
+      duration: 60,
     });
 
     if (result.success) {
@@ -40,6 +42,7 @@ export const BookingWidget: React.FC = () => {
     setBookingState('calendar');
     setBookingResult(null);
     setBookingError(null);
+    setSelectedSlot(null);
   };
 
   return (
@@ -62,9 +65,9 @@ export const BookingWidget: React.FC = () => {
           <div className="bg-white rounded-2xl shadow-xl border border-gray-200">
             <BookingConfirmation
               meetingDetails={{
-                date: bookingResult.joinUrl || '',
-                topic: 'Meeting with Host',
-                duration: 30,
+                date: selectedSlot || '',
+                topic: bookingResult.topic || 'Meeting with Host',
+                duration: 60,
                 joinUrl: bookingResult.joinUrl || '',
               }}
               onBookAnother={handleBookAnother}

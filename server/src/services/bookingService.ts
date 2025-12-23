@@ -1,4 +1,4 @@
-import { findContactByEmail, createContact } from '../adapters/hubspotAdapter';
+import { findContactByEmail, createContact, createDeal, createAssociation } from '../adapters/hubspotAdapter_v3';
 import { createMeeting } from '../adapters/zoomAdapter';
 import { HubSpotError } from '../errors/HubSpotError';
 import { ZoomError } from '../errors/ZoomError';
@@ -24,6 +24,7 @@ export interface BookingResult {
   joinUrl?: string;
   startUrl?: string;
   dealId?: string;
+  topic?: string; // Generated meeting topic
   error?: string;
 }
 
@@ -51,48 +52,63 @@ export async function executeTransaction(
 
     // Step 1: Find or Create HubSpot Contact
     console.log('[BookingService] Step 1: Finding/Creating contact...');
-    const existingContact = await findContactByEmail(request.email);
-    
-    if (existingContact) {
-      contactId = existingContact;
+    let contactInfo = await findContactByEmail(request.email);
+    let companyName: string | undefined;
+
+    if (contactInfo) {
+      contactId = contactInfo.id;
+      companyName = contactInfo.companyName;
     } else {
       console.log('[BookingService] Contact not found, creating new contact...');
       contactId = await createContact({
         email: request.email,
         firstname: request.firstname,
       });
+      // New contact won't have company yet usually
     }
-    
+
     console.log(`[BookingService] ✓ Contact ID: ${contactId}`);
+    if (companyName) console.log(`[BookingService] ✓ Found Company: ${companyName}`);
+
+    // If company name exists, use it. Otherwise fallback to contact firstname.
+    const nameToUse = companyName || request.firstname;
+    const meetingTopic = `Demo with ${nameToUse} | Vinteum`;
 
     // Step 2: Create Zoom Meeting
     console.log('[BookingService] Step 2: Creating Zoom meeting...');
     const meeting = await createMeeting({
       date: request.date,
-      topic: request.topic,
+      topic: meetingTopic,
       duration: request.duration,
+      timezone: request.timezone,
     });
-    
+
     meetingId = meeting.meetingId;
     joinUrl = meeting.joinUrl;
     startUrl = meeting.startUrl;
-    
+
     console.log(`[BookingService] ✓ Meeting ID: ${meetingId}`);
 
-    // Step 3: Create HubSpot Deal (Mock for now)
+    // Step 3: Create HubSpot Deal
     console.log('[BookingService] Step 3: Creating HubSpot deal...');
-    dealId = await createDeal(contactId, meetingId, request);
+    dealId = await createDeal(contactId, {
+      topic: meetingTopic,
+      date: request.date,
+      duration: request.duration,
+      timezone: request.timezone,
+      dealName: nameToUse
+    });
     console.log(`[BookingService] ✓ Deal ID: ${dealId}`);
 
-    // Step 4: Create Association (Mock for now)
+    // Step 4: Create Association
     console.log('[BookingService] Step 4: Creating association...');
     await createAssociation(contactId, dealId);
     console.log('[BookingService] ✓ Association created');
 
-    // Step 5: Log to Timeline (Mock for now)
+    // Step 5: Log to Timeline (still Mock for now, requires custom event definition)
     console.log('[BookingService] Step 5: Logging to timeline...');
-    await logToTimeline(contactId, meetingId, request);
-    console.log('[BookingService] ✓ Timeline logged');
+    // await logToTimeline(contactId, meetingId, request); 
+    console.log('[BookingService] (Timeline logging skipped - requires Custom Event definition)');
 
     console.log('[BookingService] ✅ Transaction completed successfully!');
 
@@ -103,6 +119,7 @@ export async function executeTransaction(
       joinUrl,
       startUrl,
       dealId,
+      topic: meetingTopic,
     };
   } catch (error: any) {
     console.error('[BookingService] ❌ Transaction failed:', error.message);
@@ -151,41 +168,4 @@ async function rollback(resources: {
   }
 
   console.log('[BookingService] [ROLLBACK_COMPLETE]');
-}
-
-/**
- * Create HubSpot Deal (Mock implementation)
- */
-async function createDeal(
-  contactId: string,
-  meetingId: string,
-  request: BookingRequest
-): Promise<string> {
-  // Mock implementation
-  const mockDealId = `mock-deal-${Date.now()}`;
-  console.log(`[HubSpot Mock] Created deal: ${mockDealId}`);
-  return mockDealId;
-}
-
-/**
- * Create Association between Contact and Deal (Mock implementation)
- */
-async function createAssociation(
-  contactId: string,
-  dealId: string
-): Promise<void> {
-  // Mock implementation
-  console.log(`[HubSpot Mock] Associated contact ${contactId} with deal ${dealId}`);
-}
-
-/**
- * Log meeting to HubSpot Timeline (Mock implementation)
- */
-async function logToTimeline(
-  contactId: string,
-  meetingId: string,
-  request: BookingRequest
-): Promise<void> {
-  // Mock implementation
-  console.log(`[HubSpot Mock] Logged meeting ${meetingId} to timeline for contact ${contactId}`);
 }

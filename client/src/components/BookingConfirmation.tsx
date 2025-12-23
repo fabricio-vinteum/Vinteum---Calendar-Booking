@@ -1,3 +1,6 @@
+import { useState } from 'react';
+import CalendarSelectionModal from './CalendarSelectionModal';
+
 interface BookingConfirmationProps {
   meetingDetails: {
     date: string;
@@ -12,6 +15,8 @@ export default function BookingConfirmation({
   meetingDetails,
   onBookAnother,
 }: BookingConfirmationProps) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const formatDate = (isoDate: string) => {
     const date = new Date(isoDate);
     return date.toLocaleDateString('en-US', {
@@ -98,24 +103,22 @@ export default function BookingConfirmation({
       </div>
 
       {/* Action Buttons */}
-      <div className="flex gap-4 animate-slide-up delay-300">
+      <div className="flex justify-center animate-slide-up delay-300">
         <button
-          onClick={onBookAnother}
-          className="rounded-lg border border-stone-300 bg-white px-6 py-2 font-medium text-stone-700 transition-all hover:bg-stone-50 hover:scale-105"
-        >
-          Book Another Meeting
-        </button>
-
-        <button
-          onClick={() => {
-            alert('Add to Calendar feature coming soon!');
-          }}
+          onClick={() => setIsModalOpen(true)}
           className="rounded-lg bg-primary px-6 py-2 font-medium text-white transition-all hover:bg-primary-hover hover:scale-105 flex items-center gap-2"
         >
           <span className="material-icons-round text-sm">event</span>
           Add to Calendar
         </button>
       </div>
+
+      {/* Calendar Selection Modal */}
+      <CalendarSelectionModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        meetingDetails={meetingDetails}
+      />
     </div>
   );
 };

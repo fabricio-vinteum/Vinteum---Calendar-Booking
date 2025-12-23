@@ -11,24 +11,24 @@ export const HostProfile: React.FC<HostProfileProps> = ({ name }) => {
     <div className="bg-gradient-to-r from-gray-50 to-white p-8 border-b border-gray-200 flex flex-col sm:flex-row items-center justify-between gap-6 relative overflow-hidden">
       {/* Decorative Background */}
       <div className="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 bg-primary/5 rounded-full blur-3xl"></div>
-      
+
       {/* Left Side: Profile */}
-      <div className="flex items-center gap-5 z-10 w-full sm:w-auto">
-        {/* Avatar with Gradient Border */}
+      <div className="flex flex-col sm:flex-row items-center gap-5 z-10 w-full sm:w-auto">
+        {/* Logo with Gradient Border */}
         <div className="relative group">
           <div className="absolute -inset-0.5 bg-gradient-to-r from-primary to-purple-600 rounded-full blur opacity-25 group-hover:opacity-50 transition duration-500"></div>
           <img
-            src="https://api.dicebear.com/7.x/notionists/svg?seed=Host"
-            alt="Host Avatar"
-            className="relative w-16 h-16 rounded-full object-cover border-2 border-white shadow-md"
+            src="/img/logo.png"
+            alt="Vinteum Logo"
+            className="relative w-16 h-16 rounded-full object-cover border-2 border-white shadow-md bg-white p-1"
           />
         </div>
-        
+
         {/* Profile Info */}
-        <div className="text-center sm:text-left">
-          <h1 className="text-xl font-bold text-gray-800">Alex Design</h1>
-          <p className="text-sm text-gray-500 font-medium">Sales Engineering</p>
-          <p className="text-xs text-primary mt-1 font-semibold bg-primary/10 px-2 py-0.5 rounded-full inline-block">
+        <div className="text-center sm:text-left flex flex-col items-center sm:items-start">
+          <h1 className="text-xl font-bold text-gray-800">Vinteum Software</h1>
+          <p className="text-sm text-gray-500 font-medium mb-2">Book your demo</p>
+          <p className="text-xs text-primary font-semibold bg-primary/10 px-3 py-1 rounded-full">
             {greeting}
           </p>
         </div>
@@ -45,7 +45,7 @@ export const HostProfile: React.FC<HostProfileProps> = ({ name }) => {
             <div className="flex items-center gap-3 text-sm font-medium">
               <span className="flex items-center gap-1 text-gray-800">
                 <span className="material-icons-round text-base text-gray-500">schedule</span>
-                30 Min
+                60 Min
               </span>
               <span className="w-px h-3 bg-gray-200"></span>
               <span className="flex items-center gap-1 text-gray-800">

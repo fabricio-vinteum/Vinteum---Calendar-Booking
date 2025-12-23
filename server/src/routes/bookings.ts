@@ -10,7 +10,7 @@ const router = Router();
 const BookingRequestSchema = z.object({
   email: z.string().email('Invalid email address'),
   firstname: z.string().min(1, 'First name is required'),
-  date: z.string().datetime('Invalid date format (ISO 8601 required)'),
+  date: z.string().datetime({ offset: true, message: 'Invalid date format (ISO 8601 required)' }),
   timezone: z.string().min(1, 'Timezone is required'),
   topic: z.string().min(1, 'Topic is required'),
   duration: z.number().int().positive('Duration must be positive'),
@@ -21,6 +21,7 @@ const BookingRequestSchema = z.object({
  * Create a new booking
  */
 router.post('/', async (req: Request, res: Response) => {
+  console.log('[Bookings API] Received booking request');
   try {
     // Validate request body
     const validationResult = BookingRequestSchema.safeParse(req.body);

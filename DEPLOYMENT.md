@@ -260,7 +260,7 @@ http://localhost:5173/?name=John&email=john@example.com
 #### Backend (`server/.env.production`)
 
 ```env
-HUBSPOT_ACCESS_TOKEN=pat-na1-xxxxx
+HUBSPOT_ACCESS_TOKEN=xxx-xxx-xxxxx
 HUBSPOT_MOCK_MODE=false
 
 ZOOM_ACCOUNT_ID=xxxxx

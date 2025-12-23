@@ -1,4 +1,5 @@
-import { findContactByEmail, createContact } from './adapters/hubspotAdapter';
+import 'dotenv/config';
+import { findContactByEmail, createContact } from './adapters/hubspotAdapter_v2';
 
 /**
  * Test script for HubSpot adapter

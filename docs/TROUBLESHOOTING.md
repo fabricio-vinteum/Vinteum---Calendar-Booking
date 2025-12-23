@@ -62,7 +62,7 @@ npm run dev
 
 2. **Update .env:**
    ```env
-   HUBSPOT_ACCESS_TOKEN=pat-na1-your-new-token
+   HUBSPOT_ACCESS_TOKEN=xxx-xxx-xxxxx
    ```
 
 3. **Restart server:**

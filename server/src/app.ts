@@ -8,6 +8,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.use((req, res, next) => {
+  console.log(`[SERVER] ${req.method} ${req.path}`);
+  next();
+});
+
 // Routes
 app.use('/api/availability', availabilityRoutes);
 app.use('/api/bookings', bookingsRoutes);

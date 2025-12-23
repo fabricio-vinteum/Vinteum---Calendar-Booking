@@ -35,3 +35,9 @@ coverage/
 
 # BMAD Output (project planning files)
 _bmad-output/
+_bmad/
+
+# Agent/AI Assistant folders
+.agent/
+.claude/
+

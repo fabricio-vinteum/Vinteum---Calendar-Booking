@@ -1,10 +1,12 @@
-# 🎯 Booking Widget - HubSpot & Zoom Integration
+# 🎯 Vinteum Calendar - Smart Booking Widget
 
 <div align="center">
 
 ![Main View](https://raw.githubusercontent.com/Pizlo/vinteumcalendar/main/.github/screenshots/main_view.png)
 
-**A modern, animated booking widget that seamlessly integrates with HubSpot CRM and Zoom**
+**An intelligent booking widget that automates meeting scheduling with seamless HubSpot CRM and Zoom integration**
+
+Built for sales teams who need to manage meeting capacity and automate their booking workflow. This widget ensures no time slot gets overbooked while automatically creating contacts, deals, and Zoom meetings.
 
 [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
@@ -16,6 +18,35 @@
 </div>
 
 ---
+
+## 🎬 What is Vinteum Calendar?
+
+Vinteum Calendar is a production-ready booking widget designed for businesses that need to:
+
+- **Manage Meeting Capacity** - Limit bookings per time slot (default: 2 bookings for 2 sales team members)
+- **Automate CRM Workflows** - Automatically create contacts and deals in HubSpot
+- **Generate Zoom Meetings** - Create video conference links instantly
+- **Prevent Double-Booking** - Real-time availability checking across your team
+- **Provide Beautiful UX** - Modern, animated interface that delights users
+
+### 💼 Perfect For:
+- Sales teams managing demo calls
+- Customer success teams scheduling onboarding
+- Consulting firms booking client meetings
+- Any business needing smart calendar management
+
+### 🔄 How It Works:
+1. **Customer visits** your booking page with their name and email (from your CRM link)
+2. **Widget shows** available time slots based on real-time capacity
+3. **Customer selects** a time that works for them
+4. **System automatically**:
+   - Creates/updates contact in HubSpot
+   - Creates a deal in HubSpot
+   - Generates a Zoom meeting
+   - Associates everything together
+   - Sends confirmation with meeting link
+
+All in less than 2 seconds, with automatic rollback if anything fails!
 
 ## ✨ Features
 

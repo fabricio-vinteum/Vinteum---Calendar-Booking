@@ -62,7 +62,7 @@ Built for sales teams who need to manage meeting capacity and automate their boo
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/vinteumcalendar.git
+   git clone https://github.com/fabricio-vinteum/Vinteum---Calendar-Booking.git
    cd vinteumcalendar
    ```
 
